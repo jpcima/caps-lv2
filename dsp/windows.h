@@ -28,6 +28,8 @@
 #ifndef DSP_WINDOWS_H 
 #define DSP_WINDOWS_H
 
+#include "Sine.h"
+
 namespace DSP {
 	
 /* prototypes for window value application ... */
@@ -112,6 +114,9 @@ blackman_harris (sample_t * s, int n)
 }
 
 /* helper for the kaiser window, courtesy of R. Dobson, courtesy of csound */
+#if 1
+double besseli (double x);
+#else
 inline double 
 besseli (double x)
 {
@@ -146,6 +151,7 @@ besseli (double x)
 
 	return ans;
 }
+#endif
 
 /* step = .5 : window [-n to 0] */
 template <window_sample_func_t F>
@@ -158,11 +164,6 @@ kaiser (sample_t * s, int n, double beta, double step = 1)
 	for (double i = -n / 2 + .1; si < n; ++si, i += step)
 	{
 		double k = besseli ((beta * sqrt (1 - pow ((2 * i / (n - 1)), 2)))) / bb;
-
-		/* can you spell hack */
-		if (!finite (k) || isnan(k))
-			k = 0;
-
 		F (s[si], k);
 	}
 }

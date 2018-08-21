@@ -17,7 +17,7 @@ endif
 CXXFLAGS += $(OPTS) -I../.. -fvisibility=hidden -fvisibility-inlines-hidden
 LDFLAGS += -shared -fdata-sections -ffunction-sections -Wl,--gc-sections -Wl,--no-undefined
 
-SOURCES = ../../Amp.cc ../../ToneStack.cc ../../dsp/polynomials.cc interface.cc
+SOURCES = ../../Amp.cc ../../ToneStack.cc ../../dsp/polynomials.cc ../../dsp/windows.cc interface.cc
 OBJECTS = $(SOURCES:.cc=.o)
 
 PLUG   = AmpVTS

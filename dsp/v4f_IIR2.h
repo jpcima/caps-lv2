@@ -32,10 +32,6 @@
 
 namespace DSP {
 
-#ifdef __APPLE__
-inline float pow10f(float f) {return pow(10,f);}
-#endif
-
 class RBJv4
 {
 	public:
@@ -142,7 +138,7 @@ class IIR2v4
 				/* A = pow (10, gain / 40) */
 				v4f_t A = (v4f_t) {.025,.025,.025,.025};
 				A *= gain;
-				A = v4f_map<pow10f> (A);
+				A = v4f_map<exp10f> (A);
 
 				RBJv4 p (f, Q);
 
@@ -429,7 +425,7 @@ class IIR2v4Bank
 					/* A = pow (10, gain / 40) */
 					v4f_t A = (v4f_t) {.025,.025,.025,.025};
 					A *= gain[i];
-					A = v4f_map<pow10f> (A);
+					A = v4f_map<exp10f> (A);
 
 					RBJv4 p (f[i], Q[i]);
 
